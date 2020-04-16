@@ -28,7 +28,7 @@
     * 2.c. [Errores de generacion del ejecutable](#Paso2_c)
 ---
 
-## 0.Paso 0 <a name="Paso0"></a>
+## Paso 0 <a name="Paso0"></a>
 **Planteo del problema**
 
 El objetivo de este paso es  el correcto setup del entorno de desarrollo, con las herramientas correspondientes para la realizacion de los trabajos practicos planteados por la catedra, asi como el repaso de algunas nociones respecto del lenguaje C y su comportamiento.
@@ -90,7 +90,7 @@ El caracteer ```<``` permite la redireccion de un archivo al stdin de un program
 
 Finalmente, el uso del caracter pipe ```|``` permite redireccionar el stdout de un programa al stdin de otro programa. Por ejemplo ```cat notas.txt | ./calcular_promedio``` redirije el output de ```cat notas.txt``` a ```./calcular_promedio```. Es equivalente a redireccionar el contenido de ```notas.txt``` al programa mediante ```<```.
 
-## 1.Paso 1 <a name="Paso1"></a>
+## Paso 1 <a name="Paso1"></a>
 **1.a Errores de estilo**<a name="Paso1_a"></a>
 
 - Errores en ```paso1_wordscounter.h```:
