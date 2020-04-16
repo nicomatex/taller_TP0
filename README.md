@@ -17,4 +17,4 @@
 
 ---
 
-## 1.Paso 0 <a name="Paso0"></>
+## 1.Paso 0 <a name="Paso0"></a>
