@@ -29,9 +29,13 @@ El objetivo de este paso es  el correcto setup del entorno de desarrollo, con la
 ---
 **1.a Capturas de pantalla**<a name="Paso0_2"></a>
 
-![Captura 1](img/Paso0/1.png?raw=true)_Captura 1.Ejecucion normal del Hola Mundo_
+![Captura 1](img/Paso0/1.png?raw=true)
 
-![Captura 2](img/Paso0/2.png?raw=true)_Captura 2.Ejecucion con Valgrind del Hola Mundo_
+_Captura 1.Ejecucion normal del Hola Mundo_
+
+![Captura 2](img/Paso0/2.png?raw=true)
+
+_Captura 2.Ejecucion con Valgrind del Hola Mundo_
 
 ---
 **1.b Uso de Valgrind**<a name="Paso0_3"></a>
