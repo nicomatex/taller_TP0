@@ -37,6 +37,13 @@
     * 4.e. [Segmentation Fault vs Buffer Overflow](#Paso4_e)
 5. **[Paso 5](#Paso5)**
     * 5.a. [Correcciones respecto de la version anterior](#Paso5_a)
+    * 5.b. [Falla de pruebas](#Paso5_b)
+    * 5.c. [Hexdump del archivo de prueba](#Paso5_c)
+    * 5.d. [Uso de GDB](#Paso5_d)
+6. **[Paso 6](#Paso6)**
+    * 6.a. [Correcciones respecto de la version anterior](#Paso6_a)
+    * 6.b. [Todas las entregas](#Paso6_b)
+    * 6.c [Pruebas de Single Word en entorno local](#Paso6_c)
 ---
 
 ## Paso 0 <a name="Paso0"></a>
@@ -212,9 +219,9 @@ _Captura 7.Errores de generacion del ejecutable_
 
 ---
 **4.b Valgrind y la prueba TDA**<a name="Paso4_b"></a>
-![Captura 7](img/Paso4/1.png?raw=true)
+![Captura 8](img/Paso4/1.png?raw=true)
 
-_Captura 7.Output de Valgrind de la prueba TDA_
+_Captura 8.Output de Valgrind de la prueba TDA_
 
 - Valgrind muestra que hay un archivo abierto ```input_tda.txt``` al momento de la terminacion del programa.
 
@@ -222,9 +229,9 @@ _Captura 7.Output de Valgrind de la prueba TDA_
 
 ---
 **4.c Valgrind y la prueba Long Filename**<a name="Paso4_c"></a>
-![Captura 7](img/Paso4/2.png?raw=true)
+![Captura 9](img/Paso4/2.png?raw=true)
 
-_Captura 7.Output de Valgrind de la prueba TDA_
+_Captura 9.Output de Valgrind de la prueba Long Filename_
 
 - Valgrind indica que la ejecucion del programa termino de forma forzosa debido a un _buffer overflow_
 
@@ -251,3 +258,83 @@ Un buffer overflow, por otra parte, se da cuando se intentan almacenar en un buf
 
 - Cambios entre ```paso4_wordscounter.h``` y ```paso5_wordscounter.h```
     - No hubo ningun cambio.
+
+---
+**5.b Falla de pruebas**<a name="Paso5_b"></a>
+- Respecto de la falla de ```Invalid File```, de acuerdo al SERCOM, el programa debia terminar con codigo de error 1, pero termino con codigo de error 255, causando que la prueba no pase.
+
+- Respecto de la falla de de ```Single Word```, se debe a que la salida del programa no es la esperada. Se esperaba que el output del programa fuera ```1```, y fue ```0```. El sercom nos permite ver la diferencia del output esperado vs el output obtenido, asi como una descripcion de la prueba.
+
+---
+**5.c Hexdump del archivo de pruebas**<a name="Paso5_c"></a>
+![Captura 10](img/Paso5/1.png?raw=true)
+
+_Captura 10.Hexdump del archivo input_single_word.txt_
+
+El archivo  termina con el caracter "d", en lugar de un salto de linea o un EOF.
+
+---
+**5.d Uso de GDB**<a name="Paso5_d"></a>
+![Captura 11](img/Paso5/2.png?raw=true)
+![Captura 11](img/Paso5/3.png?raw=true)
+![Captura 11](img/Paso5/4.png?raw=true)
+
+_Captura 11.Uso de GDB_
+
+- ```gdb ./tp``` inicia la depuracion del ejecutable de nuestro programa con GDB.
+- ```info functions``` muestra las firmas de todas las funciones definidas en nuestro programa.
+- ```list wordscounter_next_state``` Muestra 10 lineas del codigo, centradas alrededor de la funcion ```wordscounter_next_state```.
+- ```list``` Muestra las 10 lineas que le siguen a las lineas impresas en el ultimo list.
+- ```break 45``` Establece un punto de interrupcion del programa en la linea 45. Es decir, la ejecucion del programa se pausara cuando se llegue a la linea 45.
+- ```run input_single_word.txt``` inicia la ejecucion del programa con GDB, utilizando ```input_single_word.txt``` como argumento del programa siendo depurado.
+- ```quit```  finaliza la ejecucion de GDB.
+
+El debugger no se detuvo en la linea 45, debido a que esta linea nunca fue alcanzada por la ejecucion del programa. 
+
+## Paso 6 <a name="Paso6"></a>
+**6.a Correcciones respecto de la version anterior**<a name="Paso6_a"></a>
+- Cambios entre ```paso5_main.c``` y ```paso6_main.c```
+    - Se cambio el valor de la constante ```ERROR``` de ```-1``` a ```1```.
+
+- Cambios entre ```paso5_wordscounter.c``` y  ```paso6_wordscounter.c```
+    - Se arreglo la logica de la funcion ```wordscounter_next_state``` para salvar el caso de una sola palabra sin salto de linea al final.
+
+- Cambios entre ```paso5_wordscounter.h``` y ```paso6_wordscounter.h```
+    - No hubo ningun cambio.
+
+---
+**6.b Todas las entregas**<a name="Paso6_b"></a>
+![Captura 12](img/Paso6/1.png?raw=true)
+
+_Captura 12.Entrega del Paso 1_
+
+![Captura 13](img/Paso6/2.png?raw=true)
+
+_Captura 13.Entrega del Paso 2_
+
+![Captura 14](img/Paso6/3.png?raw=true)
+
+_Captura 14.Entrega del Paso 3_
+
+![Captura 15](img/Paso6/4.png?raw=true)
+
+_Captura 15.Entrega del Paso 4_
+
+![Captura 16](img/Paso6/5.png?raw=true)
+
+_Captura 16.Entrega del Paso 5_
+
+![Captura 17](img/Paso6/6.png?raw=true)
+
+_Captura 17.Entrega del Paso 6_
+
+![Captura 18](img/Paso6/8.png?raw=true)
+
+_Captura 18.Todas las entregas_
+
+
+---
+**6.c Pruebas de Single Word en entorno local**<a name="Paso6_c"></a>
+![Captura 19](img/Paso6/7.png?raw=true)
+
+_Captura 19.Pruebas de Single Word en entorno local_
