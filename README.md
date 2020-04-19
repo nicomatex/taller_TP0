@@ -26,6 +26,17 @@
     * 2.a. [Correcciones respecto de la version anterior](#Paso2_a)
     * 2.b. [Captura de verificacion de normas](#Paso2_b)
     * 2.c. [Errores de generacion del ejecutable](#Paso2_c)
+3. **[Paso 3](#Paso3)**
+    * 3.a. [Correcciones respecto de la version anterior](#Paso3_a)
+    * 3.b. [Errores de generacion del ejecutable](#Paso3_b)
+4. **[Paso 4](#Paso4)**
+    * 4.a. [Correcciones respecto de la version anterior](#Paso4_a)
+    * 4.b. [Valgrind y la prueba TDA](#Paso4_b)
+    * 4.c. [Valgrind y la prueba Long Filename](#Paso4_c)
+    * 4.d. [Uso de strncpy](#Paso4_d)
+    * 4.e. [Segmentation Fault vs Buffer Overflow](#Paso4_e)
+5. **[Paso 5](#Paso5)**
+    * 5.a. [Correcciones respecto de la version anterior](#Paso5_a)
 ---
 
 ## Paso 0 <a name="Paso0"></a>
@@ -93,18 +104,150 @@ Finalmente, el uso del caracter pipe ```|``` permite redireccionar el stdout de 
 ## Paso 1 <a name="Paso1"></a>
 **1.a Errores de estilo**<a name="Paso1_a"></a>
 
-- Errores en ```paso1_wordscounter.h```:
-    - El 1er error indica que la linea 5 es demasiado larga, y deberia tener como maximo 80 caracteres.
+![Captura 3](img/Paso1/1.png?raw=true)
 
-- Errores en ```paso1_main.c```:
-    - El 2do error indica que es mejor utilizar snprintf en vez de strcpy para copiar el contenido de una string, en la linea 12 de **paso1_main.c**
-    - El 3er error indica que el ```else``` deberia aparecer en la misma linea que la llave que cierra el bloque de codigo anterior, en la linea 15.
-    - El 4to error indica que deberian haber llaves a ambos lados de un ```else```, de forma ```} else {```, en la misma linea 15.
+_Captura 3.Errores de estilo del Paso 1_
+
 
 - Errores en ```paso1_wordscounter.c```
-    - El 5to error indica que falta un espacio entre el while y el parentesis de la condicion, en la linea 27.
-    - El 6to error indica que la cantidad de espacios a la izquierda y a la derecha de la condicion de la linea 41 no coinciden.
-    - El 7mo error indica que deberian haber o bien uno, o ningun espacio rodeando a la condicion dentro de un ```if```, en la linea 41.
-    - El 8avo error indica que el else deberia estar en la misma linea donde se cierra la llave del bloque de codigo que le precede, en la linea 47.
-    - El 9no error indica que falta un espacio entre el ```if```y el parentesis que abre la condicion en la linea 48.
-    - El 10mo error indica que hay un espacio extra antes del ultimo punto y coma, en la linea 53. 
+    - El 1er error indica que falta un espacio entre el while y el parentesis de la condicion, en la linea 27.
+    - El 2do error indica que la cantidad de espacios a la izquierda y a la derecha de la condicion de la linea 41 no coinciden.
+    - El 3er error indica que deberian haber o bien uno, o ningun espacio rodeando a la condicion dentro de un ```if```, en la linea 41.
+    - El 4to error indica que el else deberia estar en la misma linea donde se cierra la llave del bloque de codigo que le precede, en la linea 47.
+    - El 5to error indica que falta un espacio entre el ```if```y el parentesis que abre la condicion en la linea 48.
+    - El 6to error indica que hay un espacio extra antes del ultimo punto y coma, en la linea 53. 
+
+- Errores en ```paso1_main.c```:
+    - El 7mo error indica que es mejor utilizar snprintf en vez de strcpy para copiar el contenido de una string, en la linea 12 de **paso1_main.c**
+    - El 8avo error indica que el ```else``` deberia aparecer en la misma linea que la llave que cierra el bloque de codigo anterior, en la linea 15.
+    - El 9no error indica que deberian haber llaves a ambos lados de un ```else```, de forma ```} else {```, en la misma linea 15.
+
+- Errores en ```paso1_wordscounter.h```:
+    - El 10mo error indica que la linea 5 es demasiado larga, y deberia tener como maximo 80 caracteres.
+
+---
+**1.b Errores de generacion del ejecutable**<a name="Paso1_b"></a>
+
+![Captura 4](img/Paso1/2.png?raw=true)
+
+_Captura 4.Errores de generacion del ejecutable del Paso 1_
+
+- El primer error indica que el tipo ```wordscounter_t``` no fue definido en ningun momento anterior a la declaracion de la variable counter. Es un error del compilador.
+
+- Los siguientes 4 errores del tipo ```implicit declaration``` dicen que la función que está siendo llamada en las líneas 23, 24, 25 y 27 no fue definida en ningún punto anterior a su llamada en el código. En realidad, esto es un Warning, pero debido a un cierto flag de compilacion, es marcado como un error. 
+
+- Finalmente, el último mensaje es de Makefile e indica que no pudo completarse exitosamente la compilación.
+
+## Paso 2 <a name="Paso2"></a>
+**2.a Correcciones respecto de la version anterior**<a name="Paso2_a"></a>
+
+- Cambios entre ```paso1_main.c``` y ```paso2_main.c```
+    - La funcion ```strcpy``` fue reemplazada por ```memcpy```.
+    - Se puso el else junto con las llaves que cierran el bloque de codigo anterior y abren el bloque de codigo siguiente en la misma linea, separados por espacios.
+
+- Cambios entre ```paso1_wordscounter.c``` y  ```paso2_wordscounter.c```
+    - Se corrigieron los errores de estilo, como por ejemplo, se agrego el espacio entre el while y el parentesis que abre la condicion del mismo. Se eliminaron los espacios dentro de las condiciones, y se quito el espacio anterior al ultimo ```;```.
+
+- Cambios entre ```paso1_wordscounter.h``` y  ```paso2_wordscounter.h```.
+    - Se cambio la documentacion del tipo ```wordscounter_t```.
+---
+**2.b Captura de verificacion de normas**<a name="Paso2_b"></a>
+
+![Captura 5](img/Paso2/1.png?raw=true)
+
+_Captura 5.Correcta verificacion de normas de estilo_
+
+
+---
+**2.c Errores de generacion del ejecutable**<a name="Paso2_c"></a>
+![Captura 6](img/Paso2/2.png?raw=true)
+
+_Captura 6.Errores de generacion del ejecutable_
+
+- Errores en ```paso2_wordscounter.h```
+    - El 1er y 2do error indican que el tipo ```size_t``` es desconocido. Esto se debe a que este tipo esta definido en la biblioteca ```stdlib```, que no fue incluida en el header. Es un error de compilador.
+
+    - El 3er error indica que se desconoce el tipo ```FILE``` indicado en la firma de la funcion ```wordscounter_process```. Es posible que este tipo este definido en alguna biblioteca que no fue incluida en el header. Es un error de compilador.
+
+- Errores en ```paso2_wordscounter.c```
+    - El 4to error indica que hay tipos conflictivos en la forma de la funcion ```wordscounter_get_words``` definida en el header, y la funcion definida en ```paso2_wordscounter.c```. Si bien aparentemente ambos estan definidos como ```size_t```, el error se debe a que en el archivo header, el tipo ```size_t``` no estaba definido (como se mostro en un error anterior), por lo que el compilador no puede determinar si las firmas de los archivos verdaderamente son las mismas. Es un error del compilador
+
+    - El 5to error indica que la funcion ```malloc``` no fue definida en el codigo antes de su llamada. Nuevamente, esto seria un warning(que podria llevar a un error de linker), pero debido al flag, es un error de compilacion.
+
+    - El 6to error se debe a que el compilador detecta que se desea utilizar una funcion estandar, como es el caso de ```malloc```, pero esta funcion, como se dijo antes, no fue definida en ningun momento anterior. 
+
+    - Por ultimo, Makefile indica que la compilacion no fue exitosa.
+
+
+## Paso 3 <a name="Paso3"></a>
+**3.a Correcciones respecto de la version anterior**<a name="Paso3_a"></a>
+- Cambios entre ```paso2_main.c``` y ```paso3_main.c```
+    - No hubo ningun cambio.
+
+- Cambios entre ```paso2_wordscounter.c``` y  ```paso3_wordscounter.c```
+    - Se incluyo la biblioteca ```stdlib.h```.
+
+- Cambios entre ```paso2_wordscounter.h``` y ```paso3_wordscounter.h```
+    - Se incluyeron las bibliotecas ```stdio.h``` y ```string.h```.
+
+---
+**3.b Errores de generacion del ejecutable**<a name="Paso3_b"></a>
+
+![Captura 7](img/Paso3/1.png?raw=true)
+
+_Captura 7.Errores de generacion del ejecutable_
+
+- El error que se muestra indica que el linker no puede resolver una referencia a la funcion ```wordscounter_destroy```. Esto se debe a que la funcion fue nombrada, pero nunca fue implementada en el codigo objeto de ```paso3_wordscounter.o```.
+
+## Paso 4 <a name="Paso4"></a>
+**4.a Correcciones respecto de la version anterior**<a name="Paso4_a"></a>
+- Cambios entre ```paso3_main.c``` y ```paso4_main.c```
+    - No hubo ningun cambio.
+
+- Cambios entre ```paso3_wordscounter.c``` y  ```paso4_wordscounter.c```
+    - Se implemento la funcion ```wordscounter_destroy```.
+
+- Cambios entre ```paso3_wordscounter.h``` y ```paso4_wordscounter.h```
+    - No hubo ningun cambio.
+
+---
+**4.b Valgrind y la prueba TDA**<a name="Paso4_b"></a>
+![Captura 7](img/Paso4/1.png?raw=true)
+
+_Captura 7.Output de Valgrind de la prueba TDA_
+
+- Valgrind muestra que hay un archivo abierto ```input_tda.txt``` al momento de la terminacion del programa.
+
+- Tambien muestra que el proceso tenia allocados 1849 bytes de memoria del _heap_ que no fueron liberados al momento de la finalizacion del programa, con su respectiva clasificacion en _still reachable_ y _definitely lost_.
+
+---
+**4.c Valgrind y la prueba Long Filename**<a name="Paso4_c"></a>
+![Captura 7](img/Paso4/2.png?raw=true)
+
+_Captura 7.Output de Valgrind de la prueba TDA_
+
+- Valgrind indica que la ejecucion del programa termino de forma forzosa debido a un _buffer overflow_
+
+---
+**4.d Uso de strncpy**<a name="Paso4_d"></a>
+
+El uso de strncpy no cambiaria nada, debido a que se intentarian seguir copiadno mas bytes de los que caben en el buffer de destino. La prueba seguiria arrojando un _buffer overflow_.
+
+---
+**4.e Segmentation Fault vs Buffer Overflow**<a name="Paso4_e"></a>
+
+Un segmentation fault se da cuando se intenta hacer una referencia a una variable por fuera de donde dicha variable reside, por ejemplo, si se tiene un array de 100 elementos y se intenta acceder al elemento 101. Tambien se da en caso de querer hacer una escritura en un segmento de solo-lectura.
+
+Un buffer overflow, por otra parte, se da cuando se intentan almacenar en un buffer mas datos de los que caben en el mismo. Por ejemplo, si se tiene un buffer de 100 bytes y se intentan almacenar 150 bytes de datos en el mismo, se generara un buffer overflow. Los buffer overflow siempre causan segmentation faults, pero no todo segmentation fault se debe a un buffer overflow.
+
+## Paso 5 <a name="Paso5"></a>
+**5.a Correcciones respecto de la version anterior**<a name="Paso5_a"></a>
+- Cambios entre ```paso4_main.c``` y ```paso5_main.c```
+    - Ahora se realiza ```fopen``` sin utilizar un buffer adicional para almacenar el nombre del archivo.
+    - Si se utilizo un archivo que no es la entrada estandar como input, se lo cierra antes de terminar la ejecucion del programa.
+
+- Cambios entre ```paso4_wordscounter.c``` y  ```paso5_wordscounter.c```
+    - Los caracteres delimitadores ahora se almacenan en array de caracteres constante, en lugar de en memoria dinamica.
+
+- Cambios entre ```paso4_wordscounter.h``` y ```paso5_wordscounter.h```
+    - No hubo ningun cambio.
