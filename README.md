@@ -304,6 +304,7 @@ El debugger no se detuvo en la linea 45, debido a que esta linea nunca fue alcan
 
 ---
 **6.b Todas las entregas**<a name="Paso6_b"></a>
+
 ![Captura 12](img/Paso6/1.png?raw=true)
 
 _Captura 12.Entrega del Paso 1_
@@ -335,6 +336,7 @@ _Captura 18.Todas las entregas_
 
 ---
 **6.c Pruebas de Single Word en entorno local**<a name="Paso6_c"></a>
+
 ![Captura 19](img/Paso6/7.png?raw=true)
 
 _Captura 19.Pruebas de Single Word en entorno local_
