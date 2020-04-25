@@ -91,6 +91,8 @@ struct persona{
 ```
 El elemento _inicial_ estaria en la primera posicion de memoria del Struct, pero luego, para garantizar que _edad_ este alineada a 4 bytes,  se deben dejar 3 bytes de padding entre inicial y edad. Esto lleva a que el ```sizeof()``` del struct sea 8 bytes, en lugar de los 5 bytes que suman los ```sizeof()``` de sus elementos.
 
+Genial, pero no siempre ese 4 es un 4. Para complementar y entender mejor te sugiero que pruebes qué pasa con un short en vez de un int en tu struct persona.
+
 ---
 **0.e Los archivos estandar**<a name="Paso0_6"></a>
 
@@ -125,7 +127,7 @@ _Captura 3.Errores de estilo del Paso 1_
     - El 6to error indica que hay un espacio extra antes del ultimo punto y coma, en la linea 53. 
 
 - Errores en ```paso1_main.c```:
-    - El 7mo error indica que es mejor utilizar snprintf en vez de strcpy para copiar el contenido de una string, en la linea 12 de **paso1_main.c**
+    - El 7mo error indica que es mejor utilizar snprintf en vez de strcpy para copiar el contenido de una string, en la linea 12 de **paso1_main.c**  <-- por qué?
     - El 8avo error indica que el ```else``` deberia aparecer en la misma linea que la llave que cierra el bloque de codigo anterior, en la linea 15.
     - El 9no error indica que deberian haber llaves a ambos lados de un ```else```, de forma ```} else {```, en la misma linea 15.
 
@@ -181,7 +183,9 @@ _Captura 6.Errores de generacion del ejecutable_
 
     - El 5to error indica que la funcion ```malloc``` no fue definida en el codigo antes de su llamada. Nuevamente, esto seria un warning(que podria llevar a un error de linker), pero debido al flag, es un error de compilacion.
 
-    - El 6to error se debe a que el compilador detecta que se desea utilizar una funcion estandar, como es el caso de ```malloc```, pero esta funcion, como se dijo antes, no fue definida en ningun momento anterior. 
+   - El 6to error se debe a que el compilador detecta que se desea utilizar una funcion estandar, como es el caso de ```malloc```, pero esta funcion, como se dijo antes, no fue definida en ningun momento anterior. 
+
+Sí, pero hay un detalle más el caso del malloc. Esa función tiene una declaración "built-in" que devuelve int en vez de un puntero como se usa en el código, y por ende GCC detecta ese conflicto y te tira la recomendación.
 
     - Por ultimo, Makefile indica que la compilacion no fue exitosa.
 
@@ -239,11 +243,13 @@ _Captura 9.Output de Valgrind de la prueba Long Filename_
 **4.d Uso de strncpy**<a name="Paso4_d"></a>
 
 El uso de strncpy no cambiaria nada, debido a que se intentarian seguir copiadno mas bytes de los que caben en el buffer de destino. La prueba seguiria arrojando un _buffer overflow_.
+Y si le pasamos el largo del buffer destino? O el mínimo?
 
 ---
 **4.e Segmentation Fault vs Buffer Overflow**<a name="Paso4_e"></a>
 
 Un segmentation fault se da cuando se intenta hacer una referencia a una variable por fuera de donde dicha variable reside, por ejemplo, si se tiene un array de 100 elementos y se intenta acceder al elemento 101. Tambien se da en caso de querer hacer una escritura en un segmento de solo-lectura.
+Lo primero que describís es un buffer overflow también. Un segmentation fault se da cuando intentás acceder a memoria a la cual no tenés permiso.
 
 Un buffer overflow, por otra parte, se da cuando se intentan almacenar en un buffer mas datos de los que caben en el mismo. Por ejemplo, si se tiene un buffer de 100 bytes y se intentan almacenar 150 bytes de datos en el mismo, se generara un buffer overflow. Los buffer overflow siempre causan segmentation faults, pero no todo segmentation fault se debe a un buffer overflow.
 
